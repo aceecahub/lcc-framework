@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pemasok;
 use Illuminate\Http\Request;
 
-class BarangController extends Controller
+class PemasokController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,7 +28,18 @@ class BarangController extends Controller
      */
     public function store(Request $request)
     {
-        
+        $dataValidate = $request->validate([
+            'nama_pemasok' => 'required',
+            'alamat' => 'required',
+            'noHP' => 'required'
+        ]);
+
+        $pemasok = Pemasok::create($dataValidate);
+
+        return response()->json([
+            'message' => 'Data Pemsok Terkirim',
+            'data' => $pemasok
+        ], 201);
     }
 
     /**
@@ -43,7 +55,7 @@ class BarangController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        
     }
 
     /**
