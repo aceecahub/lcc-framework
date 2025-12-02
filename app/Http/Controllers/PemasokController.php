@@ -12,7 +12,11 @@ class PemasokController extends Controller
      */
     public function index()
     {
-        //
+        $pemasok = Pemasok::all();
+        return response()->json([
+            'message' => 'Data ditampilkan',
+            'data' => $pemasok
+        ], 201);
     }
 
     /**
@@ -47,7 +51,11 @@ class PemasokController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $pemasok = Pemasok::find($id);
+        return response()->json([
+            'message' => 'Data Pemasok Berhasil diambil',
+            'data' => $pemasok
+        ], 201);
     }
 
     /**
@@ -55,7 +63,11 @@ class PemasokController extends Controller
      */
     public function edit(string $id)
     {
-        
+        $pemasok = Pemasok::find($id);
+        return response()->json([
+            'message' => 'Data Pemasok Berhasil di ubah',
+            'data' => $pemasok
+        ], 201);
     }
 
     /**
@@ -63,7 +75,18 @@ class PemasokController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $dataValidate = $request->validate([
+            'nama_pemasok' => 'required|unique:pemasoks,nama_pemasok',
+            'alamat' => 'required',
+            'noHP' => 'required'
+        ]);
+
+        $pemasok = Pemasok::find($id)->update($dataValidate);
+
+        return response()->json([
+            'message' => 'Data berhasil diubah',
+            'data' => $pemasok
+        ], 201);
     }
 
     /**
@@ -71,6 +94,10 @@ class PemasokController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Pemasok::find($id)->delete();
+        return response()->json([
+            'message' => "Berhasil dihapus",
+            'status' => 200
+        ]);
     }
 }

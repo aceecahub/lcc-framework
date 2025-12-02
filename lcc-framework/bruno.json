@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "lcc-framework",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}
